@@ -45,4 +45,59 @@ document.getElementById('quoteForm').addEventListener('submit', async (e) => {
         alert('An error occurred: ' + error.message);
     }
 });
+// Hamburger Menu Toggle
+const navbarToggle = document.querySelector('.navbar-toggle');
+const navbarMenu = document.querySelector('.navbar-menu');
 
+navbarToggle.addEventListener('click', () => {
+    navbarToggle.classList.toggle('active');
+    navbarMenu.classList.toggle('active');
+});
+
+// Close Mobile Menu When a Link is Clicked
+document.querySelectorAll('.navbar-link').forEach(link => {
+    link.addEventListener('click', () => {
+        if (navbarMenu.classList.contains('active')) {
+            navbarToggle.classList.remove('active');
+            navbarMenu.classList.remove('active');
+        }
+    });
+});
+
+// Highlight Active Navbar Link on Scroll
+document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.navbar-link');
+
+    window.addEventListener('scroll', () => {
+        let currentSection = '';
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (window.scrollY >= sectionTop - sectionHeight / 3) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(currentSection)) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+    // Smooth Scrolling for Navbar Links
+    document.querySelectorAll('.navbar-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+          const targetId = link.getAttribute('href');
+          if (targetId.startsWith('#')) { // Only apply smooth scrolling to anchor links
+              e.preventDefault();
+              const targetSection = document.querySelector(targetId);
+              targetSection.scrollIntoView({ behavior: 'smooth' });
+          }
+          // Allow default behavior for non-anchor links (e.g., admin-login.html)
+      });
+  });
+});
