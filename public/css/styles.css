@@ -658,7 +658,7 @@ section {
     }
         .gallery-container {
         position: relative;
-        width: 700px;
+        width: 650px;
         margin: 0 auto;
         overflow: hidden;
         border-radius: 15px;
@@ -666,7 +666,7 @@ section {
     }
 
     .gallery-image {
-        width: 100%; /* Show 1 image at a time on smaller screens */
+        width: 50%; /* Show 1 image at a time on smaller screens */
     }
 
     .prev-btn,
@@ -688,7 +688,7 @@ section {
     }
         .gallery-container {
         position: relative;
-        width: 400px;
+        width: 350px;
         margin: 0 auto;
         overflow: hidden;
         border-radius: 15px;
