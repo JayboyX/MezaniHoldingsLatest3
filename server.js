@@ -90,8 +90,6 @@ const authenticateJWT = (req, res, next) => {
 
 // Route to handle contact form submission
 app.post('/send-email', (req, res) => {
-  console.log('Received form data:', req.body);
-
   const { name, email, message } = req.body;
 
   const mailOptions = {
