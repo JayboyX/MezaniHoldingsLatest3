@@ -27,34 +27,25 @@ document.getElementById('quoteForm')?.addEventListener('submit', async (e) => {
     }
   });
   
-document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
+document.getElementById('contactForm')?.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const formData = {
-    name: e.target.name.value,
-    email: e.target.email.value,
-    message: e.target.message.value,
-  };
+  // Get form data
+  const name = e.target.name.value;
+  const email = e.target.email.value;
+  const message = e.target.message.value;
 
-  try {
-    const response = await fetch('https://mezaniholdings.co.za/send-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
+  // Format the message for WhatsApp
+  const whatsappMessage = `Name: ${name}%0AEmail: ${email}%0AMessage: ${message}`;
 
-    if (response.ok) {
-      const data = await response.json();
-      alert(data.message);
-      e.target.reset();
-    } else {
-      const errorData = await response.json();
-      alert(`Error: ${errorData.error}`);
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    alert('An error occurred while sending the message.');
-  }
+  // WhatsApp API URL
+  const whatsappUrl = `https://wa.me/27665544332?text=${whatsappMessage}`; // Replace with your WhatsApp number
+
+  // Redirect to WhatsApp
+  window.open(whatsappUrl, '_blank');
+
+  // Optional: Reset the form after submission
+  e.target.reset();
 });
 
   let slideIndex = 0;
