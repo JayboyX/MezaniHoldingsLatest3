@@ -9,6 +9,7 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -248,7 +249,7 @@ app.post('/api/admin/login', async (req, res) => {
 
     } catch (error) {
         console.error('Login Route Error:', error);
-        res.status(500).json({ error: 'Server error' }); // Return JSON error
+        res.status(500).json({ error: 'Server error' });
     }
 });
 // Route to fetch all inquiries
