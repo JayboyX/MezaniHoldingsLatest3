@@ -111,9 +111,10 @@ section {
 
 /* Hamburger Menu (Mobile) */
 .navbar-toggle {
-    display: none;
+    display: none; /* Hidden by default on desktop */
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
     width: 30px;
     height: 24px;
     background: transparent;
@@ -130,6 +131,7 @@ section {
     transition: all 0.3s ease;
 }
 
+/* Transform hamburger into "X" when active */
 .navbar-toggle.active .navbar-toggle-icon:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
@@ -144,6 +146,10 @@ section {
 
 /* Responsive Navbar */
 @media (max-width: 768px) {
+    .navbar-logo img {
+        height: 30px; /* Reduce logo size on mobile */
+    }
+
     .navbar-menu {
         position: fixed;
         top: var(--navbar-height);
@@ -171,7 +177,7 @@ section {
     }
 
     .navbar-toggle {
-        display: flex;
+        display: flex; /* Show hamburger menu on mobile */
     }
 }
 
@@ -534,34 +540,23 @@ section {
 
 
 /* Gallery Section */
-/* Basic Gallery Styles */
-.gallery-section {
-    width: 90%; /* Adjust as needed */
-    max-width: 1200px; /* Optional max-width */
-    margin: 40px auto;
+.gallery-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
-    background-color: #f9f9f9;
+    overflow: hidden;
     border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .section-title {
     text-align: center;
     margin-bottom: 30px;
-    font-size: 2.5em;
+    font-size: 2em;
     color: #2E86C1;
     font-weight: 600;
     letter-spacing: -1px;
-}
-
-/* Gallery Container */
-.gallery-container {
-    position: relative;
-    width: 1200px;
-    margin: 0 auto;
-    overflow: hidden;
-    border-radius: 15px;
-
 }
 
 /* Gallery Wrapper */
@@ -572,7 +567,7 @@ section {
 
 /* Gallery Images */
 .gallery-image {
-    width: calc(80% / 3); /* Show 3 images at a time */
+    width: 100%; /* Full width by default */
     height: auto;
     object-fit: cover;
     border-radius: 10px;
@@ -593,51 +588,53 @@ section {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: linear-gradient(135deg, #3498db, #2980b9); /* Blue gradient background */
+    background: linear-gradient(135deg, #3498db, #2980b9);
     color: #fff;
     border: none;
-    padding: 15px;
+    padding: 10px;
     cursor: pointer;
     border-radius: 50%;
-    font-size: 20px;
-    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+    font-size: 18px;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     z-index: 1;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */}
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
 
 .prev-btn:hover,
 .next-btn:hover {
-    background: linear-gradient(135deg, #2980b9, #3498db); /* Reverse gradient on hover */
-    transform: translateY(-50%) scale(1.1); /* Slight scale on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Increase shadow on hover */}
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
 
 .prev-btn {
-    left: 10px; /* Adjust as needed */
+    left: 10px;
 }
 
 .next-btn {
-    right: 10px; /* Adjust as needed */
+    right: 10px;
 }
 
 /* Popup Styles */
 .popup-viewer {
-    display: none; /* Hidden by default */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9); /* Dark backdrop */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    z-index: 1000; /* Ensure popup is on top */
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 .close-popup {
     position: absolute;
-    top: 30px;
-    right: 30px;
+    top: 20px;
+    right: 20px;
     color: white;
-    font-size: 40px;
+    font-size: 30px;
     cursor: pointer;
     transition: color 0.3s ease;
 }
@@ -647,44 +644,21 @@ section {
 }
 
 .popup-image {
-    max-width: 90%; /* Adjust as needed */
-    max-height: 90%; /* Adjust as needed */
-    object-fit: contain; /* Maintain aspect ratio within popup */
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-    .gallery-section {
-        width: 95%;
-        padding: 15px;
-    }
-
     .section-title {
-        font-size: 2em;
+        font-size: 1.8em;
     }
 
     .gallery-image {
-        width: calc(100% / 2); /* Show 2 images at a time on smaller screens */
-    }
-
-    .prev-btn,
-    .next-btn {
-        padding: 10px;
-        font-size: 18px;
-    }
-
-    .close-popup {
-        font-size: 30px;
-        top: 15px;
-        right: 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .gallery-image {
-        width: 100%; /* Show 1 image at a time on very small screens */
+        width: 100%; /* Show 1 image at a time on smaller screens */
     }
 
     .prev-btn,
@@ -695,29 +669,28 @@ section {
 
     .close-popup {
         font-size: 24px;
+        top: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.5em;
+    }
+
+    .prev-btn,
+    .next-btn {
+        padding: 6px;
+        font-size: 14px;
+    }
+
+    .close-popup {
+        font-size: 20px;
         top: 10px;
         right: 10px;
     }
 }
-
-/* Optional: Add a subtle gradient overlay on hover */
-.gallery-image::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
-    border-radius: 10px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.gallery-image:hover::after {
-    opacity: 1;
-}
-
 
         /* Contact Section */
         .contact {
