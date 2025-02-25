@@ -6,7 +6,6 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const { createClient } = require('@supabase/supabase-js');
 const nodemailer = require('nodemailer');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
