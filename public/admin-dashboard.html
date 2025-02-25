@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Mezani Holdings</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html#home" class="navbar-logo">
+                <img src="assets/logo.webp" alt="Mezani Holdings Logo">
+            </a>
+            <button class="navbar-toggle" aria-label="Toggle navigation">
+                <span class="navbar-toggle-icon"></span>
+            </button>
+
+            <div class="admin-info">
+                <span id="adminUsername"></span>
+                <button id="signOutButton">Sign Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Total Inquiries</h3>
+                <span id="totalInquiries">0</span>
+            </div>
+            <div class="stat-card">
+                <h3>Answered</h3>
+                <span id="answeredInquiries">0</span>
+            </div>
+            <div class="stat-card">
+                <h3>Pending</h3>
+                <span id="pendingInquiries">0</span>
+            </div>
+        </div>
+
+        <div class="inquiries-container">
+            <h3>Pending Inquiries</h3>
+            <div class="inquiries-list" id="inquiriesList"></div>
+        </div>
+    </div>
+
+    <!-- Reply Modal -->
+    <div id="replyModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Reply to Inquiry</h3>
+            <form id="replyForm">
+                <textarea id="replyMessage" required></textarea>
+                <button type="submit">Send Reply</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/admin-dashboard.js"></script>
+</body>
+</html>

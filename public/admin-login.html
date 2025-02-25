@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - Mezani Holdings</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html#home" class="navbar-logo">
+                <img src="assets/logo.webp" alt="Mezani Holdings Logo">
+            </a>
+            <button class="navbar-toggle" aria-label="Toggle navigation">
+                <span class="navbar-toggle-icon"></span>
+            </button>
+            <ul class="navbar-menu">
+                <li class="navbar-item"><a href="index.html#home" class="navbar-link">Home</a></li>
+                <li class="navbar-item"><a href="index.html#services" class="navbar-link">Services</a></li>
+                <li class="navbar-item"><a href="index.html#about" class="navbar-link">About Us</a></li>
+                <li class="navbar-item"><a href="index.html#contact" class="navbar-link">Contact</a></li>
+                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="login-container">
+        <h2>Admin Login</h2>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <button type="submit">Login</button>
+          <div id="loginError" class="error-message"></div>
+        </form>
+      </div>
+    
+      <script src="js/admin-login.js"></script>
+    </body>
+    </html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get a Quote - Mezani Holdings</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-logo">
+        <img src="assets/logo.webp" alt="Mezani Holdings Logo">
+      </a>
+      <ul class="navbar-menu">
+        <li class="navbar-item"><a href="index.html" class="navbar-link">Home</a></li>
+        <li class="navbar-item"><a href="index.html#services" class="navbar-link">Services</a></li>
+        <li class="navbar-item"><a href="index.html#about" class="navbar-link">About Us</a></li>
+        <li class="navbar-item"><a href="index.html#contact" class="navbar-link">Contact</a></li>
+        <li class="navbar-item"><a href="admin-login.html" class="navbar-link">Admin</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="quote-form">
+    <h2>Get a Quote</h2>
+    <form id="quoteForm">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <input type="tel" name="phone" placeholder="Your Phone Number" required>
+      <select name="service" id="serviceSelect" required>
+        <option value="" disabled selected>Select Service</option>
+        <option value="deep-cleaning">Deep Cleaning</option>
+        <option value="window-cleaning">Window Cleaning</option>
+        <option value="carpet-cleaning">Carpet Cleaning</option>
+        <option value="mattress-cleaning">Mattress Cleaning</option>
+        <option value="couch-cleaning">Couch Cleaning</option>
+        <option value="sneakers-washing">Sneakers Washing</option>
+        <option value="clothes-ironing">Clothes Ironing</option>
+        <option value="blankets-cleaning">Blankets Cleaning</option>
+        <option value="car-valet">Car Valet</option>
+        <option value="closet-packing">Closet Packing</option>
+        <option value="washing-bedding">Washing Bedding</option>
+        <option value="gardening-service">Gardening Service</option>
+        <option value="housekeeper">Housekeeper</option>
+        <option value="nanny-placement">Nanny Placement</option>
+    </select>
+      <input type="text" name="location" placeholder="Location" required>
+      <textarea name="message" placeholder="Additional Information" rows="5" required></textarea>
+      <button type="submit">Send Inquiry</button>
+  </form>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    // Function to get query parameters from the URL
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // Function to set the selected service in the dropdown
+    function setSelectedService() {
+        const service = getQueryParam('service');
+        if (service) {
+            const serviceSelect = document.getElementById('serviceSelect');
+            serviceSelect.value = service;
+        }
+    }
+
+    // Run the function when the page loads
+    window.onload = setSelectedService;
+</script>
+</body>
+</html>

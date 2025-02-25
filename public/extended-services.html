@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extended Services - Mezani Holdings</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Extended Services Specific Styling */
+    .extended-services {
+      padding: 4rem 2rem;
+      text-align: center;
+      background: var(--light-bg);
+    }
+
+    .extended-services .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: var(--black);
+    }
+
+    .extended-services .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .extended-services .service-card {
+      background: var(--white);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+      text-decoration: none;
+      color: var(--black);
+      aspect-ratio: 1 / 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .extended-services .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .extended-services .service-card i {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .extended-services .service-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .extended-services .service-card p {
+      font-size: 1rem;
+      color: var(--gray);
+    }
+
+    /* Scroll Down Section */
+    .scroll-down {
+      margin-top: 3rem;
+      text-align: center;
+    }
+
+    .scroll-down-arrow {
+      font-size: 2rem;
+      color: var(--primary);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-20px);
+      }
+      60% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Remaining Services Section */
+    .remaining-services {
+      margin-top: 4rem;
+      padding: 4rem 2rem;
+      background: var(--white);
+    }
+
+    .remaining-services .section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: var(--black);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-logo">
+        <img src="assets/logo.webp" alt="Mezani Holdings Logo">
+      </a>
+      <ul class="navbar-menu">
+        <li class="navbar-item"><a href="index.html" class="navbar-link">Home</a></li>
+        <li class="navbar-item"><a href="index.html#services" class="navbar-link">Services</a></li>
+        <li class="navbar-item"><a href="index.html#about" class="navbar-link">About Us</a></li>
+        <li class="navbar-item"><a href="index.html#contact" class="navbar-link">Contact</a></li>
+        <li class="navbar-item"><a href="admin-login.html" class="navbar-link">Admin</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Extended Services Section -->
+  <section class="extended-services">
+    <h2 class="section-title">Our Extended Services</h2>
+    <div class="service-grid">
+      <!-- First 6 Services -->
+      <a href="quote.html?service=deep-cleaning" class="service-card">
+        <i class="fas fa-broom"></i>
+        <h3>Deep Cleaning</h3>
+        <p>Thorough cleaning for homes and offices.</p>
+      </a>
+      <a href="quote.html?service=window-cleaning" class="service-card">
+        <i class="fas fa-window-restore"></i>
+        <h3>Window Cleaning</h3>
+        <p>Sparkling clean windows every time.</p>
+      </a>
+      <a href="quote.html?service=carpet-cleaning" class="service-card">
+        <i class="fas fa-rug"></i>
+        <h3>Carpet Cleaning</h3>
+        <p>Professional carpet cleaning services.</p>
+      </a>
+      <a href="quote.html?service=mattress-cleaning" class="service-card">
+        <i class="fas fa-bed"></i>
+        <h3>Mattress Cleaning</h3>
+        <p>Deep cleaning for mattresses.</p>
+      </a>
+      <a href="quote.html?service=couch-cleaning" class="service-card">
+        <i class="fas fa-couch"></i>
+        <h3>Couch Cleaning</h3>
+        <p>Revitalize your couches with our cleaning.</p>
+      </a>
+      <a href="quote.html?service=sneakers-washing" class="service-card">
+        <i class="fas fa-shoe-prints"></i>
+        <h3>Sneakers Washing</h3>
+        <p>Professional sneaker cleaning.</p>
+      </a>
+      <a href="quote.html?service=clothes-ironing" class="service-card">
+        <i class="fas fa-tshirt"></i>
+        <h3>Clothes Ironing</h3>
+        <p>Perfectly ironed clothes every time.</p>
+      </a>
+      <a href="quote.html?service=blankets-cleaning" class="service-card">
+        <i class="fas fa-blanket"></i>
+        <h3>Blankets Cleaning</h3>
+        <p>Deep cleaning for blankets.</p>
+      </a>
+    </div>
+
+    <!-- Scroll Down Arrow -->
+    <div class="scroll-down">
+      <i class="fas fa-chevron-down scroll-down-arrow"></i>
+    </div>
+  </section>
+
+  <!-- Remaining Services Section -->
+  <section class="remaining-services">
+    <h2 class="section-title">More Services</h2>
+    <div class="service-grid">
+      <!-- Remaining Services -->
+      <a href="quote.html?service=car-valet" class="service-card">
+        <i class="fas fa-car"></i>
+        <h3>Car Valet</h3>
+        <p>Professional car cleaning services.</p>
+      </a>
+      <a href="quote.html?service=closet-packing" class="service-card">
+        <i class="fas fa-archive"></i>
+        <h3>Closet Packing</h3>
+        <p>Organize and pack your closet.</p>
+      </a>
+      <a href="quote.html?service=washing-bedding" class="service-card">
+        <i class="fas fa-bed"></i>
+        <h3>Washing Bedding</h3>
+        <p>Clean and fresh bedding.</p>
+      </a>
+      <a href="quote.html?service=gardening-service" class="service-card">
+        <i class="fas fa-leaf"></i>
+        <h3>Gardening Service</h3>
+        <p>Professional gardening and landscaping.</p>
+      </a>
+      <a href="quote.html?service=housekeeper" class="service-card">
+        <i class="fas fa-home"></i>
+        <h3>Housekeeper</h3>
+        <p>Professional housekeeping services.</p>
+      </a>
+      <a href="quote.html?service=nanny-placement" class="service-card">
+        <i class="fas fa-baby"></i>
+        <h3>Nanny Placement</h3>
+        <p>Find the perfect nanny for your family.</p>
+      </a>
+    </div>
+  </section>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
