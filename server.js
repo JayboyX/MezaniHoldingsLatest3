@@ -90,24 +90,27 @@ const authenticateJWT = (req, res, next) => {
 
 // Route to handle contact form submission
 app.post('/send-email', (req, res) => {
+  console.log('Received form data:', req.body);
+
   const { name, email, message } = req.body;
 
   const mailOptions = {
-    from: 'fromwebsite@mezaniholdings.co.za', // Sender address (contact form email)
-    to: 'langenjustice@gmail.com', // Recipient address (admin email)
-    subject: 'New Contact Form Submission', // Subject line
-    text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`, // Plain text body
+    from: 'fromwebsite@mezaniholdings.co.za',
+    to: 'langenjustice@gmail.com',
+    subject: 'New Contact Form Submission',
+    text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
   };
 
   contactFormTransporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error('Error sending email:', error);
-      return res.status(500).send('Error sending email');
+      return res.status(500).json({ error: 'Error sending email' });
     }
     console.log('Email sent:', info.response);
-    res.status(200).send('Email sent successfully');
+    res.status(200).json({ message: 'Email sent successfully' });
   });
 });
+
 // Route to handle inquiry submission
 app.post('/api/inquiry', async (req, res) => {
     try {
