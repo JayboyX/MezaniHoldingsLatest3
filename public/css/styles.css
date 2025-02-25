@@ -1057,6 +1057,7 @@ section {
 
     #signOutButton {
         margin-top: 0.5rem;
+            font-weight: 100; /* Semi-bold text */
     }
 
     .dashboard-container {
