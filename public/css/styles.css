@@ -656,6 +656,14 @@ section {
     .section-title {
         font-size: 1.8em;
     }
+        .gallery-container {
+        position: relative;
+        width: 700px;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 15px;
+    
+    }
 
     .gallery-image {
         width: 100%; /* Show 1 image at a time on smaller screens */
@@ -677,6 +685,14 @@ section {
 @media (max-width: 480px) {
     .section-title {
         font-size: 1.5em;
+    }
+        .gallery-container {
+        position: relative;
+        width: 400px;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 15px;
+    
     }
 
     .prev-btn,
