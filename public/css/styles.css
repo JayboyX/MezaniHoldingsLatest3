@@ -1056,8 +1056,8 @@ section {
     }
 
     #signOutButton {
-        margin-top: 0.5rem;
-            font-weight: 100; /* Semi-bold text */
+        padding: 0.4rem 0.8rem; /* Further reduce padding on smaller screens */
+        font-size: 0.8rem; /* Even smaller font */
     }
 
     .dashboard-container {
