@@ -567,7 +567,7 @@ section {
 
 /* Gallery Images */
 .gallery-image {
-    width: 100%; /* Full width by default */
+    width: 80%; /* Full width by default */
     height: auto;
     object-fit: cover;
     border-radius: 10px;
