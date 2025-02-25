@@ -27,10 +27,9 @@ document.getElementById('quoteForm')?.addEventListener('submit', async (e) => {
     }
   });
   
-  // Contact form submission
   document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+  
     const formData = {
       name: e.target.name.value,
       email: e.target.email.value,
@@ -38,7 +37,7 @@ document.getElementById('quoteForm')?.addEventListener('submit', async (e) => {
     };
   
     try {
-      const response = await fetch('/api/inquiry', {
+      const response = await fetch('/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -47,12 +46,15 @@ document.getElementById('quoteForm')?.addEventListener('submit', async (e) => {
       if (response.ok) {
         alert('Message sent successfully!');
         e.target.reset();
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error}`);
       }
     } catch (error) {
       console.error('Error:', error);
+      alert('An error occurred while sending the message.');
     }
   });
-
 
   let slideIndex = 0;
 showSlides(slideIndex);
