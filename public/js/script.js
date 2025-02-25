@@ -27,26 +27,6 @@ document.getElementById('quoteForm')?.addEventListener('submit', async (e) => {
     }
   });
   
-document.getElementById('contactForm')?.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  // Get form data
-  const name = e.target.name.value;
-  const email = e.target.email.value;
-  const message = e.target.message.value;
-
-  // Format the message for WhatsApp
-  const whatsappMessage = `Name: ${name}%0AEmail: ${email}%0AMessage: ${message}`;
-
-  // WhatsApp API URL
-  const whatsappUrl = `https://wa.me/27721089080?text=${whatsappMessage}`; // Replace with your WhatsApp number
-
-  // Redirect to WhatsApp
-  window.open(whatsappUrl, '_blank');
-
-  // Optional: Reset the form after submission
-  e.target.reset();
-});
 
   let slideIndex = 0;
 showSlides(slideIndex);
