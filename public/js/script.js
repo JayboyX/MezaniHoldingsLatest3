@@ -39,7 +39,7 @@ document.getElementById('contactForm')?.addEventListener('submit', (e) => {
   const whatsappMessage = `Name: ${name}%0AEmail: ${email}%0AMessage: ${message}`;
 
   // WhatsApp API URL
-  const whatsappUrl = `https://wa.me/27721089080?text=${whatsappMessage}`; // Replace with your WhatsApp number
+  const whatsappUrl = `https://wa.me/27829531818?text=${whatsappMessage}`; // Replace with your WhatsApp number
 
   // Redirect to WhatsApp
   window.open(whatsappUrl, '_blank');
