@@ -6,20 +6,20 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const { createClient } = require('@supabase/supabase-js');
 const nodemailer = require('nodemailer');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
+const geoip = require('geoip-lite'); // Moved to the top for better organization
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3500;
 
 // Initialize Supabase client
 const supabaseUrl = process.env.SUPABASE_URL || 'https://yciodlqdaeqriivvyysf.supabase.co';
 const supabaseKey = process.env.SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljaW9kbHFkYWVxcmlpdnZ5eXNmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAxNzc5MjUsImV4cCI6MjA1NTc1MzkyNX0.3JcqkigXo2RgvW5iMI2q0oOYaH_YB8b-tQVVaAg5v6U';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Add this at the beginning of your server code
+// Test Supabase connection
 async function testSupabaseConnection() {
     try {
         const { data, error } = await supabase.from('admins').select('id').limit(1);
@@ -87,26 +87,109 @@ const authenticateJWT = (req, res, next) => {
     }
 };
 
-// Routes
+// Keep-alive mechanism
+const keepAlive = () => {
+    setInterval(async () => {
+        try {
+            const response = await fetch(`http://localhost:${PORT}/api/keep-alive`);
+            console.log('Keep-alive request sent:', response.status);
+        } catch (error) {
+            console.error('Keep-alive request failed:', error);
+        }
+    }, 600000); // 10 minutes
+};
+
+app.get('/api/keep-alive', (req, res) => {
+    res.status(200).json({ message: 'Server is alive' });
+});
+
+keepAlive();
+
+// Log login attempts
+const logLoginAttempt = async (username, ip, success) => {
+    try {
+        const { data, error } = await supabase
+            .from('login_attempts')
+            .insert([{ username, ip, success, timestamp: new Date().toISOString() }])
+            .select();
+
+        if (error) throw error;
+        console.log('Login attempt logged:', data);
+    } catch (error) {
+        console.error('Error logging login attempt:', error);
+    }
+};
+
+// Admin login route
+app.post('/api/admin/login', async (req, res) => {
+    console.log('Login route hit'); // Debugging log
+    const { username, password } = req.body;
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const geo = geoip.lookup(ip);
+
+    try {
+        console.log('Login Request:', { username, ip });
+
+        const { data: admin, error } = await supabase
+            .from('admins')
+            .select('*')
+            .eq('username', username)
+            .single();
+
+        if (error || !admin) {
+            console.error('Admin not found or query error:', error);
+            await logLoginAttempt(username, ip, false);
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        const passwordMatch = await bcrypt.compare(password, admin.password);
+        if (!passwordMatch) {
+            console.error('Password mismatch');
+            await logLoginAttempt(username, ip, false);
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        const token = jwt.sign({ userId: admin.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        console.log('Token Generated:', token);
+
+        // Send email notification
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: process.env.ADMIN_EMAIL,
+            subject: 'New Login Detected',
+            text: `New login from ${username} at ${new Date().toISOString()} from IP: ${ip}, Location: ${geo ? `${geo.city}, ${geo.country}` : 'Unknown'}`,
+        };
+
+        await serverTransporter.sendMail(mailOptions);
+        console.log('Login notification email sent');
+
+        await logLoginAttempt(username, ip, true);
+        res.json({ token });
+
+    } catch (error) {
+        console.error('Login Route Error:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
 
 // Route to handle contact form submission
 app.post('/send-email', (req, res) => {
     const { name, email, message } = req.body;
 
     const mailOptions = {
-        from: 'fromwebsite@mezaniholdings.co.za', // Sender address (contact form email)
-        to: 'langenjustice@gmail.com', // Recipient address (admin email)
-        subject: 'New Contact Form Submission', // Subject line
-        text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`, // Plain text body
+        from: 'fromwebsite@mezaniholdings.co.za',
+        to: 'langenjustice@gmail.com',
+        subject: 'New Contact Form Submission',
+        text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
     };
 
     contactFormTransporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.error('Error sending email:', error);
-            return res.status(500).send('Error sending email');
+            return res.status(500).json({ error: 'Error sending email' });
         }
         console.log('Email sent:', info.response);
-        res.status(200).send('Email sent successfully');
+        res.status(200).json({ message: 'Email sent successfully' });
     });
 });
 
@@ -219,39 +302,6 @@ app.get('/api/stats', authenticateJWT, async (req, res) => {
     }
 });
 
-// Route to handle admin login
-app.post('/api/admin/login', async (req, res) => {
-    const { username, password } = req.body;
-
-    try {
-        console.log('Login Request:', { username });
-
-        const { data: admin, error } = await supabase
-            .from('admins')
-            .select('*')
-            .eq('username', username)
-            .single();
-
-        if (error || !admin) {
-            console.error('Admin not found or query error:', error);
-            return res.status(401).json({ error: 'Invalid credentials' });
-        }
-
-        const passwordMatch = await bcrypt.compare(password, admin.password);
-        if (!passwordMatch) {
-            console.error('Password mismatch');
-            return res.status(401).json({ error: 'Invalid credentials' });
-        }
-
-        const token = jwt.sign({ userId: admin.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        console.log('Token Generated:', token);
-        res.json({ token });
-
-    } catch (error) {
-        console.error('Login Route Error:', error);
-        res.status(500).json({ error: 'Server error' });
-    }
-});
 // Route to fetch all inquiries
 app.get('/api/inquiries', authenticateJWT, async (req, res) => {
     try {
